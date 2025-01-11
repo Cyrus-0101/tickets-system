@@ -20,8 +20,11 @@ const NotFound = () => {
               height={500}
               sizes='500px'
               alt='Page Not Found'
-              priority={true}
+              placeholder='blur'
+              blurDataURL='/images/blurred_404_image.png'
+              priority={false}
               title='Page Not Found'
+              loading={false ? "eager" : "lazy"}
             />
           </div>
       </div>
