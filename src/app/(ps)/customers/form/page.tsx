@@ -4,6 +4,7 @@ import * as Sentry from "@sentry/nextjs";
 import BackButton from '@/components/BackButton';
 
 import { getCustomer } from '@/lib/queries';
+import CustomerForm from './CustomerForm';
 
 type Props = {
     searchParams: Promise<{ [key: string]: string | undefined }>
@@ -18,8 +19,6 @@ const page = async ({ searchParams }: Props) => {
     if (customerId) {
         const customer = await getCustomer(customerId);
 
-        console.log(customer)
-
         if (!customer) {
             return (
                 <>
@@ -28,14 +27,17 @@ const page = async ({ searchParams }: Props) => {
                 </>
             )
         }
+
+        console.log(customer);
+
+        // Edit existing customer
+        return <CustomerForm customer={customer} />
+
     } else {
         // TO-DO: Add new customer
+        return <CustomerForm />
     }
 
-    return (
-        // TO-DO: Edit existing customer
-        <></>
-    );
   } catch (error) {
     if (error instanceof Error) {
         Sentry.captureException(error)
