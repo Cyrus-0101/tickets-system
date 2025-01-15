@@ -4,6 +4,7 @@ import * as Sentry from "@sentry/nextjs";
 import BackButton from '@/components/BackButton';
 
 import { getCustomer, getTicket } from '@/lib/queries';
+import TicketForm from './TicketForm';
 
 type Props = {
     searchParams: Promise<{ [key: string]: string | undefined }>
@@ -48,6 +49,8 @@ const page = async ({ searchParams }: Props) => {
         }
 
         console.log(customer);
+
+        return <TicketForm customer={customer} />
     }
 
     // Eddit ticket form
@@ -69,13 +72,10 @@ const page = async ({ searchParams }: Props) => {
         console.log("Ticket: ", ticket);
         console.log("Customer: ", customer);
 
+        return <TicketForm customer={customer} ticket={ticket} />
+
         // TO-DO: return ticket form
     }
-
-    return (
-        // TO-DO: Edit existing ticket
-        <></>
-    );
   } catch (error) {
     if (error instanceof Error) {
         Sentry.captureException(error);
